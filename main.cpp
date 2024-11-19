@@ -18,7 +18,6 @@ template <typename T> class GenericArray {
         }
         temp[v_size-1] = number;
         numbers = temp;
-        delete[] temp;
     }
 
     T at(int index) {
@@ -76,11 +75,11 @@ template <typename T> class GenericArray {
             return nullptr;
         }
 
-
-        T* temp = new T[end - start];
-        for (int i = start; i < end; i++) {
-            temp[i] = numbers[i];
+        T* temp = new T[end+1 - start];
+        for (int i = 0; i < end-start; i++) {
+            temp[i] = numbers[i+start];
         }
+        temp[end-start] = numbers[end];
         return temp;
     }
 };
@@ -91,13 +90,21 @@ int main() {
     for(int i = 0; i < 100; i++) {
         numbers.add(i);
     }
-    cout << numbers.sum() << endl;
-    cout << numbers.max() << endl;
-    cout << numbers.min() << endl;
-    cout << numbers.at(50) << endl;
-    int *num = numbers.slice(40,50);
-    for (int i = 0; i < 10; i++) {
-        cout << num[i] << endl;
+    cout << "Summ: " << numbers.sum() << endl;
+    cout << "Max: "  << numbers.max() << endl;
+    cout << "Min: "  << numbers.min() << endl;
+    cout << "Number at 50: "<<numbers.at(50) << endl;
+
+
+
+    int start = 0;
+    int end = 50;
+
+    int *num = numbers.slice(start,end);
+    cout << "Number from index " << start << " to index "<< end <<": ";
+    for (int i = 0; i <= end-start; i++) {
+        if (i != end-start) cout << num[i] <<",";
+        else cout << num[i];
     }
 
     return 0;
