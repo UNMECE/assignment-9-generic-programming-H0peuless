@@ -8,6 +8,7 @@ template <typename T> class GenericArray {
     GenericArray(){}
     ~GenericArray() {
         delete[] numbers;
+        v_size = 0;
     }
 
     void add(T number) {
